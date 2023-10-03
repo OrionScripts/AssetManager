@@ -22,8 +22,23 @@ table.setHorizontalHeaderLabels(['Asset Name', 'Image', 'Created By', 'Date Crea
 
 # Define main window class.
 class MainWindow(QMainWindow):
+    """
+    The main application window for the Asset Manager.
+
+    Attributes:
+        table (QTableWidget): The main table widget displaying asset data.
+        searchBox (QLineEdit): A text input field for searching assets.
+        searchButton (QPushButton): Button to trigger the search operation.
+        clearButton (QPushButton): Button to clear the search results.
+    """
 
     def __init__(self, table):
+        """
+        Initialize the main window.
+
+        Args:
+            table (QTableWidget): The QTableWidget to display asset data.
+        """
         super().__init__()
         self.setWindowTitle("Asset Manager - Ryan Amos")
         
@@ -65,6 +80,12 @@ class MainWindow(QMainWindow):
                       
     # Define search method.
     def search(self):
+        """
+        Perform a search operation based on the text entered in the searchBox.
+
+        This method iterates through the table's rows and columns to find matches
+        with the search text and either displays or hides rows accordingly.
+        """
         searchText = self.searchBox.text().lower()
         for row in range(table.rowCount()):
             for col in range(table.columnCount()):
@@ -77,12 +98,23 @@ class MainWindow(QMainWindow):
     
     # Define clear search method.
     def clear(self):
+        """
+        Clear the search results and reset the table to its original state.
+
+        This method clears the search input field and shows all rows in the table.
+        """
         self.searchBox.clear()
         for row in range(table.rowCount()):
             table.setRowHidden(row, False)
         
     # Display JSON data.
     def displayData(self):
+        """
+        Display asset data in the QTableWidget.
+
+        This method populates the QTableWidget with data from the JSON file, including
+        asset names, images, creators, creation dates, editors, and modification dates.
+        """
         for i, item in enumerate (data):
             table.setRowHeight(i,64)
             guid = item['guid']
